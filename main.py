@@ -28,7 +28,7 @@ today = dt.datetime.now()
 current_month = today.month
 current_day = today.day
 birthdays_df = pd.read_csv('birthdays.csv')
-birthdays_dict = birthdays_df.to_dict('records')
+birthdays_dict = birthdays_df.to_dict(orient='records')
 
 for person in birthdays_dict:
     if person['month'] == current_month and person['day'] == current_day:
