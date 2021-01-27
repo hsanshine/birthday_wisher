@@ -1,4 +1,4 @@
-'''birthday wisher program by Hamza Kyamanywa 2021/01/27'''
+"""birthday wisher program by Hamza Kyamanywa 2021/01/27"""
 import pandas as pd
 import datetime as dt
 import smtplib
@@ -12,10 +12,12 @@ letters = ['./letter_templates/letter_1.txt', './letter_templates/letter_2.txt',
 
 
 def send_message(email, name):
+    # get the letter to send
     letter_doc = random.choice(letters)
     with open(letter_doc, 'r') as letter:
         message = letter.read()
         message = message.replace('[NAME]', name)
+    # send the email you using the letter that you choose
     with smtplib.SMTP(gmail_server) as connection:
         connection.starttls()
         connection.login(user=my_mail, password=my_password)
@@ -29,7 +31,7 @@ birthdays_df = pd.read_csv('birthdays.csv')
 birthdays_dict = birthdays_df.to_dict('records')
 
 for person in birthdays_dict:
-    print(person)
     if person['month'] == current_month and person['day'] == current_day:
+        print(person)
         send_message(person['email'], person['name'])
         print(f'finished sending email to {person["name"]}')
